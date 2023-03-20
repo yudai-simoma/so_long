@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/19 12:29:05 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/20 20:33:13 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h> //open関数
+# include "libft.h"
+# include "ft_printf.h"
+# include "get_next_line_bonus.h"
 # include "../minilibx_mms_20200219/mlx.h"
 
 # define MLX_SYNC_IMAGE_WRITABLE	1
@@ -41,7 +45,7 @@ typedef enum e_event {
 
 typedef struct s_vars {
 	void	*mlx;
-	void	*mlx_win;
+	void	*win;
 }	t_vars;
 
 //get_color.c
@@ -51,5 +55,18 @@ unsigned char	ft_get_t(int trgb);
 unsigned char	ft_get_r(int trgb);
 unsigned char	ft_get_g(int trgb);
 unsigned char	ft_get_b(int trgb);
+
+//error_check
+int				ft_error_check(int argc, char **argv);
+
+//map_str
+char			**ft_map_str(char **argv);
+
+//map_put_img
+void			ft_put_wall(void *r_mlx, void *r_win,
+					void *a_img, char **a_map_str);
+
+//utils
+size_t			ft_arr_size_pp(char **a_str);
 
 #endif

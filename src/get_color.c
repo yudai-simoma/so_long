@@ -6,11 +6,11 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:04 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/19 12:26:02 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:47:57 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/so_long.h"
+#include "so_long.h"
 
 /*
  * 
