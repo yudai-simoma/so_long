@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/20 20:33:13 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:36:49 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef enum e_event {
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
+	t_data	*data;
+	char	**map_str;
 }	t_vars;
 
 //get_color.c
@@ -63,8 +65,11 @@ int				ft_error_check(int argc, char **argv);
 char			**ft_map_str(char **argv);
 
 //map_put_img
-void			ft_put_wall(void *r_mlx, void *r_win,
-					void *a_img, char **a_map_str);
+void			ft_set_img(t_data *a_img, void *a_mlx);
+int				ft_put_img(void *a_vars);
+
+//kye_hook
+int				ft_key_hook(int keycode, t_vars *vars);
 
 //utils
 size_t			ft_arr_size_pp(char **a_str);

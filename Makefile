@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 11:35:21 by yshimoma          #+#    #+#              #
-#    Updated: 2023/03/20 20:35:52 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/03/20 21:14:56 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ ${NAME}:
 	$(MAKE) -C libft
 	$(MAKE) -C get_next_line
 	$(MAKE) -C ft_printf
-	${CC} -I${INCLUDE} libmlx.dylib libft/libft.a ft_printf/libftprintf.a get_next_line/get_next_line.a ${SRCS_DIR}${SRCS}
+	${CC} -g -I${INCLUDE} libmlx.dylib libft/libft.a ft_printf/libftprintf.a get_next_line/get_next_line.a ${SRCS_DIR}${SRCS}
 
 clean:
 	${RM} ${OBJS}
