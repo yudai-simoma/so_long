@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/21 12:36:49 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:47:19 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,12 @@ typedef enum e_event {
 typedef struct s_vars {
 	void	*mlx;
 	void	*win;
-	t_data	*data;
+	t_data	data[5];
 	char	**map_str;
+	size_t	start_x;
+	size_t	start_y;
+	size_t	column;
+	size_t	record;
 }	t_vars;
 
 //get_color.c
@@ -59,7 +63,7 @@ unsigned char	ft_get_g(int trgb);
 unsigned char	ft_get_b(int trgb);
 
 //error_check
-int				ft_error_check(int argc, char **argv);
+int				ft_error_check(int argc, char **argv, t_vars *r_vars);
 
 //map_str
 char			**ft_map_str(char **argv);
@@ -69,9 +73,11 @@ void			ft_set_img(t_data *a_img, void *a_mlx);
 int				ft_put_img(void *a_vars);
 
 //kye_hook
-int				ft_key_hook(int keycode, t_vars *vars);
+int				ft_key_hook(int r_keycode, void *r_vars);
+// int				ft_key_hook(int r_keycode, t_vars *r_vars);
 
 //utils
-size_t			ft_arr_size_pp(char **a_str);
+// size_t			ft_arr_size_pp(char **a_str);
+void			ft_map_len(t_vars *r_vars);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 12:25:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/21 12:37:30 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:28:35 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 	// t_data	r_img[5];
 	// char	**r_map_str;
 
-	if (ft_error_check(argc, argv))
+	if (ft_error_check(argc, argv, &r_vars))
 		return (0);
 	r_vars.map_str = ft_map_str(argv);
 	if (r_vars.map_str == NULL)
@@ -26,18 +26,14 @@ int	main(int argc, char **argv)
 	for (int i = 0; i < 5; i++) {
 		ft_printf("map_str[%d] = %s", i, r_vars.map_str[i]);
 	}
+	ft_map_len(&r_vars);//マップの行数、列数を取得
 	r_vars.mlx = mlx_init();
 	r_vars.win = mlx_new_window(r_vars.mlx, 1000, 500, "Hello world!");
-	r_vars.data = (t_data *)ft_calloc(5, sizeof(t_data *));
-	ft_set_img(r_vars.data->img, r_vars.mlx);//画像の読み込み
-	// ft_put_img(r_vars.mlx, r_vars.win, r_vars.img, r_vars.map_str);//マップへ描画
-	//ON_KEYDOWN指定のため, キーボードが押されたらft_win_closeが呼ばれる
-	mlx_hook(r_vars.win, ON_KEYDOWN, 1L << 0, ft_key_hook, &r_vars);
-	//キーボードが押されたらft_key_hookが呼ばれる
-	// mlx_key_hook(r_vars.win, ft_key_hook, &r_vars);
+	// r_vars.data = (t_data *)ft_calloc(5, sizeof(t_data *));
+	ft_set_img(r_vars.data, r_vars.mlx);//画像の読み込み
 	mlx_loop_hook(r_vars.mlx, ft_put_img, &r_vars);
 	mlx_loop(r_vars.mlx);
-	free (r_vars.data->img);
+	// free (r_vars.data->img);
 	return (0);
 }
 
