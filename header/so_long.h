@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/21 20:47:19 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:19:15 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_vars {
 	size_t	start_y;
 	size_t	column;
 	size_t	record;
+	ssize_t	item_num;
+	size_t	move_count;
 }	t_vars;
 
 //get_color.c

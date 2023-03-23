@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:58:55 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/20 19:43:18 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:19:27 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void	put_u_nbr(unsigned int a_nbr, size_t *a_return_num);
 void	put_16_upper(unsigned int a_nbr, size_t *a_return_num);
 void	put_16_lower(unsigned int a_nbr, size_t *a_return_num);
 void	put_16_address(void *a_address, size_t *a_return_num);
+void	put_size_t_nbr(size_t a_nbr, size_t *a_return_num);
 char	*ft_itoa_p(int n);
 char	*ft_u_itoa(unsigned int n);
 char	*ft_16_itoa_upper(unsigned int n);
 char	*ft_16_itoa_lower(unsigned int n);
 char	*ft_16_address_itoa(uintptr_t n);
+char	*ft_size_t_itoa(size_t n);
 void	ft_putstr_fd_p(char *s, int fd);
 void	*ft_calloc_p(size_t count, size_t size);
 void	*ft_memset_p(void *b, int c, size_t len);

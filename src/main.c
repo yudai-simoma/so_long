@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 12:25:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/21 20:28:35 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:19:42 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 	// t_data	r_img[5];
 	// char	**r_map_str;
 
+	r_vars.move_count = 0;
 	if (ft_error_check(argc, argv, &r_vars))
 		return (0);
 	r_vars.map_str = ft_map_str(argv);

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 11:47:10 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/20 18:34:58 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:21:40 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	ap_puts(const char *a_format, va_list *a_ap, size_t *a_return_num)
 		put_16_lower((unsigned int)va_arg(*a_ap, unsigned int), a_return_num);
 	else if (*a_format == 'X')
 		put_16_upper((unsigned int)va_arg(*a_ap, unsigned int), a_return_num);
+	else if (*a_format == 'z')
+		put_size_t_nbr((size_t)va_arg(*a_ap, size_t), a_return_num);
 	else if (*a_format == '%')
 		put_char(*a_format, a_return_num);
 	else

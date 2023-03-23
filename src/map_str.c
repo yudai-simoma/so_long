@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:49:40 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/21 18:36:01 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:17:54 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	**ft_map_str(char **argv)
 
 	if (r_fd == -1)
 		return (NULL);
+	// argv[1] = "test2.ber";
 	argv[1] = "test.txt";
 	r_line_len = ft_line_len(r_fd, argv[1]);
 	r_return_str = (char **)ft_calloc((r_line_len + 1), sizeof(char *));
