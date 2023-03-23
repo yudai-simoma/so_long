@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:21:55 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/21 18:47:08 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:14:05 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,10 @@ void	ft_map_len(t_vars *r_vars)
 		i++;
 	r_vars->column = i;
 	r_vars->record = ft_strlen(r_vars->map_str[0]) - 1;
+}
+
+int	ft_mouse_hook(int r_keycode, void *a_vars)
+{
+	exit(0);
+	return (0);
 }

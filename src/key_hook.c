@@ -6,20 +6,11 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 11:47:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/22 20:24:06 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:31:18 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-/*
- * TODO
- *  end_壁はすり抜けられない処理追加
- * 	end_アイテムを取得時のフラグチェック
- *  end_ゴール判定
- *  end_ゴール後のマップ終了
- *  end_一手ごとに、現在の移動回数をシェルに表示する必要があります。
- */
 
 static void	ft_move_up(t_vars *r_vars)
 {
@@ -111,7 +102,6 @@ int	ft_key_hook(int r_keycode, void *a_vars)
 	t_vars	*r_vars;
 
 	r_vars = (t_vars *)a_vars;
-	// ft_printf("keycode = %d, start_1 = %d, start_2 = %d\n", r_keycode, r_vars->start_p[0], r_vars->start_p[1]);
 	if (r_keycode == 0 || r_keycode == 126)
 		ft_move_up(r_vars);
 	else if (r_keycode == 1 || r_keycode == 124)

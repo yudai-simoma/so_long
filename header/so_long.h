@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/22 19:19:15 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:28:40 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,6 @@ typedef struct s_vars {
 	size_t	move_count;
 }	t_vars;
 
-//get_color.c
-int				ft_create_trgb(unsigned char t, unsigned char r,
-					unsigned char g, unsigned char b);
-unsigned char	ft_get_t(int trgb);
-unsigned char	ft_get_r(int trgb);
-unsigned char	ft_get_g(int trgb);
-unsigned char	ft_get_b(int trgb);
-
 //error_check
 int				ft_error_check(int argc, char **argv, t_vars *r_vars);
 
@@ -81,5 +73,6 @@ int				ft_key_hook(int r_keycode, void *r_vars);
 //utils
 // size_t			ft_arr_size_pp(char **a_str);
 void			ft_map_len(t_vars *r_vars);
+int				ft_mouse_hook(int r_keycode, void *a_vars);
 
 #endif

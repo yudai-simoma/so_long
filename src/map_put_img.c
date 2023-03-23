@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:18:58 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/21 20:27:22 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/23 20:10:21 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	ft_put_img(void *a_vars)
 	r_vars = (t_vars *)a_vars;
 	//ON_KEYDOWN指定のため, キーボードが押されたらft_win_closeが呼ばれる
 	mlx_hook(r_vars->win, ON_KEYDOWN, 1L << 0, ft_key_hook, (void *)r_vars);
+	mlx_hook(r_vars->win, ON_DESTROY, 1L << 0, ft_mouse_hook, (void *)r_vars);
 	mlx_put_image_to_window(r_vars->mlx,
 		r_vars->win, r_vars->data[0].img, 0, 0);
 	i = 0;
