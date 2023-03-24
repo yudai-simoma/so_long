@@ -12,6 +12,17 @@
 
 #include "so_long.h"
 
+/*
+ * 2次元配列の文字列を確認し、その値によって画像を表示する
+ * 
+ * @param	マップデータの構造体
+ * @param	横の位置
+ * @param	縦の位置
+ * @return	無し
+ * 
+ * ON_KEYDOWN = キーボード押下
+ * ON_DESTROY = ×ボタンをクリック
+ */
 static void	ft_put_img_sub(t_vars *a_vars, size_t i, size_t j)
 {
 	if (a_vars->map_str[i][j] == '1')
@@ -29,9 +40,14 @@ static void	ft_put_img_sub(t_vars *a_vars, size_t i, size_t j)
 }
 
 /*
- * 画像をマップに描画する
+ * 画像データをマップに描画する
+ * 
+ * @param	マップデータの構造体
+ * @return	int
+ * 
+ * ON_KEYDOWN = キーボード押下
+ * ON_DESTROY = ×ボタンをクリック
  */
-// void	ft_put_img(void *a_mlx, void *a_win, t_data *a_img, char **a_map_str)
 int	ft_put_img(void *a_vars)
 {
 	t_vars	*r_vars;
@@ -39,7 +55,6 @@ int	ft_put_img(void *a_vars)
 	size_t	j;
 
 	r_vars = (t_vars *)a_vars;
-	//ON_KEYDOWN指定のため, キーボードが押されたらft_win_closeが呼ばれる
 	mlx_hook(r_vars->win, ON_KEYDOWN, 1L << 0, ft_key_hook, (void *)r_vars);
 	mlx_hook(r_vars->win, ON_DESTROY, 1L << 0, ft_mouse_hook, (void *)r_vars);
 	mlx_put_image_to_window(r_vars->mlx,
@@ -58,6 +73,13 @@ int	ft_put_img(void *a_vars)
 	return (0);
 }
 
+/*
+ * 画像データを使用可能な変数へ格納する
+ * 
+ * @param	画像データ構造体
+ * @param	void *a_mlx
+ * @return	なし
+ */
 void	ft_set_img(t_data *a_img, void *a_mlx)
 {
 	int		img_width;
