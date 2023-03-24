@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:49:40 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/23 18:55:56 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:56:17 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,30 @@
  * @param	ファイル名
  * @return	行数
  */
-static size_t	ft_line_len(int a_fd, char *a_file_name)
+static size_t	ft_line_len(char *a_file_name)
 {
 	ssize_t	r_size;
 	size_t	r_return_num;
 	char	r_buf[1];
+	int		r_fd;
 
+	r_fd = open(a_file_name, O_RDONLY);
+	if (r_fd == -1)
+		return (0);
 	r_return_num = 1;
 	while (1)
 	{
-		r_size = read(a_fd, r_buf, 1);
+		r_size = read(r_fd, r_buf, 1);
 		if (r_size == -1)
+		{
+			close(r_fd);
 			return (0);
+		}
 		if (r_size == 0)
+		{
+			close(r_fd);
 			return (r_return_num);
+		}
 		if (r_buf[0] == '\n')
 			r_return_num++;
 	}
@@ -54,7 +64,7 @@ char	**ft_map_str(char **a_argv)
 	r_fd = open(a_argv[1], O_RDONLY);
 	if (r_fd == -1)
 		return (NULL);
-	r_line_len = ft_line_len(r_fd, a_argv[1]);
+	r_line_len = ft_line_len(a_argv[1]);
 	if (r_line_len == 0)
 		return (NULL);
 	r_return_str = (char **)ft_calloc((r_line_len + 1), sizeof(char *));

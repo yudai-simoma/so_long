@@ -6,47 +6,44 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/23 20:28:40 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/24 20:31:51 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h> //open関数
+# include <fcntl.h> //open, close関数
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line_bonus.h"
 # include "../minilibx_mms_20200219/mlx.h"
 
-# define MLX_SYNC_IMAGE_WRITABLE	1
-# define MLX_SYNC_WIN_FLUSH_CMD		2
-# define MLX_SYNC_WIN_CMD_COMPLETED	3
+# define ON_KEYDOWN	2
+# define ON_DESTROY	17
 
+/*
+ * 画像データの構造体
+ * 
+ * img : 画像のデータ
+ */
 typedef struct s_data {
 	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
 }	t_data;
 
-typedef enum e_event {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-}	t_event;
-
-typedef struct s_vars {
+/*
+ * マップデータの構造体
+ * 
+ * mlx : MLX インスタンス, win : 新しいウィンドウのインスタンス
+ * img_date : 画像データの構造体, map_str : マップデータを格納する2次元配列
+ * start_x : スタート位置の行情報, start_y : スタート位置の列情報
+ * column : マップの行数, record : マップの列数
+ * item_num : アイテムの個数（0になるとゴール可能）move_count : 移動した回数
+ * 
+ */
+typedef struct s_map {
 	void	*mlx;
 	void	*win;
-	t_data	data[5];
+	t_data	img_data[5];
 	char	**map_str;
 	size_t	start_x;
 	size_t	start_y;
@@ -54,25 +51,32 @@ typedef struct s_vars {
 	size_t	record;
 	ssize_t	item_num;
 	size_t	move_count;
-}	t_vars;
+}	t_map;
 
-//error_check
-int				ft_error_check(int argc, char **argv, t_vars *r_vars);
+/*
+ * エラー処理の構造体
+ * 
+ * img : 画像のデータ
+ */
+typedef struct s_error {
+	size_t		name_len;
+	const char	*check_str = "01CEP";
+	size_t		c_num;
+	size_t		p_num;
+	size_t		e_num;
+}	t_error;
 
-//map_str
-char			**ft_map_str(char **argv);
-
-//map_put_img
-void			ft_set_img(t_data *a_img, void *a_mlx);
-int				ft_put_img(void *a_vars);
-
-//kye_hook
-int				ft_key_hook(int r_keycode, void *r_vars);
-// int				ft_key_hook(int r_keycode, t_vars *r_vars);
-
-//utils
-// size_t			ft_arr_size_pp(char **a_str);
-void			ft_map_len(t_vars *r_vars);
-int				ft_mouse_hook(int r_keycode, void *a_vars);
+//error_check.c
+int		ft_error_check(int argc, char **argv, t_map *r_vars);
+//map_str.c
+char	**ft_map_str(char **argv);
+//map_put_img.c
+int		ft_map_put_img(void *a_vars);
+//kye_hook.c
+int		ft_move_check(t_map *r_vars, size_t x, size_t y);
+void	ft_move_up(t_map *r_vars);
+void	ft_move_right(t_map *r_vars);
+void	ft_move_down(t_map *r_vars);
+void	ft_move_left(t_map *r_vars);
 
 #endif
