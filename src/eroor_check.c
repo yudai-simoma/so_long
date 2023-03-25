@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:45:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/24 20:34:30 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/25 10:48:31 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,6 @@ void	ft_char_check(t_error *a_error, t_map *a_map)
 		}
 		i++;
 	}
-}
-
-int	ft_map_path_check(t_map *a_map)
-{
-
 }
 
 /*

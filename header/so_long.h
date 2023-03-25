@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/24 20:31:51 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/25 11:18:14 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,21 @@ typedef struct s_error {
 	size_t		e_num;
 }	t_error;
 
+//マスの情報
+typedef struct s_cell {
+    int x; /* マスのi座標 */
+    int y; /* マスのj座標 */
+}	t_cell;
+
+//スタック構造体s
+typedef struct s_stack {
+	//データの最後尾
+	int		tail;
+	//スタックされているデータ
+	t_cell	*data;
+	int		max_num;
+}	t_stack;
+
 //error_check.c
 int		ft_error_check(int argc, char **argv, t_map *r_vars);
 //map_str.c
@@ -78,5 +93,11 @@ void	ft_move_up(t_map *r_vars);
 void	ft_move_right(t_map *r_vars);
 void	ft_move_down(t_map *r_vars);
 void	ft_move_left(t_map *r_vars);
+//dfs.c
+int		ft_map_path_check(t_map *a_map);
+//stack.c
+void	ft_init_stack(t_stack *a_stack);
+void	ft_push(t_stack *a_stack, t_cell *a_input);
+t_cell	*ft_pop(t_stack *a_stack);
 
 #endif
