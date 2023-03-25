@@ -6,11 +6,12 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:44:49 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/25 10:35:53 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/25 21:58:08 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <stdbool.h>
 
 /*
  * スタックを初期化する
@@ -29,7 +30,7 @@ void	ft_push(t_stack *a_stack, t_cell *a_input)
 {
 	if (a_stack->tail >= a_stack->max_num - 1)
 	{
-		printf("Cannot PUSH because the stack is full\n");
+		ft_printf("Cannot PUSH because the stack is full\n");
 		return ;
 	}
 	a_stack->tail++;
@@ -46,10 +47,26 @@ t_cell	*ft_pop(t_stack *a_stack)
 
 	if (a_stack->tail == -1)
 	{
-		printf("Cannot POP because the stack is empty\n");
+		ft_printf("Cannot POP because the stack is empty\n");
 		return (NULL);
 	}
 	r_return_cell = &(a_stack->data[a_stack->tail]);
 	a_stack->tail--;
 	return (r_return_cell);
+}
+
+bool	ft_is_empty(t_stack *a_stack)
+{
+	if (a_stack->tail == -1)
+		return (true);
+	return (false);
+}
+
+void ft_print_stack(t_stack *a_stack)
+{
+	for (int i = 0; i <= a_stack->tail; i++)
+	{
+		ft_printf("(x : %d, y : %d)", a_stack->data[i].y, a_stack->data[i].x);
+	}
+	ft_printf("\n");
 }

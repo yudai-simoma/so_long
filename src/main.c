@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 12:25:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/24 19:54:28 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/25 20:23:25 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param	void *a_mlx
  * @return	なし
  */
-static void	ft_set_img(t_data *a_img, void *a_mlx)
+void	ft_set_img(t_data *a_img, void *a_mlx)
 {
 	int		img_width;
 	int		img_height;
@@ -36,42 +36,60 @@ static void	ft_set_img(t_data *a_img, void *a_mlx)
 			"./img/light.png", &img_width, &img_height);
 }
 
-static void	ft_map_len(t_map *r_vars)
+void	ft_map_len(t_map *r_map)
 {
 	size_t	i;
 
 	i = 0;
-	while (r_vars->map_str[i] != NULL)
+	while (r_map->map_str[i] != NULL)
 		i++;
-	r_vars->column = i;
-	r_vars->record = ft_strlen(r_vars->map_str[0]) - 1;
+	r_map->column = i;
+	r_map->record = ft_strlen(r_map->map_str[0]) - 1;
+}
+
+void	ft_init_map(t_map *a_map)
+{
+	int	i;
+
+	a_map->move_count = 0;
+	a_map->mlx = NULL;
+	a_map->win = NULL;
+	i = 0;
+	while (i < 5)
+	{
+		a_map->img_data[i].img = NULL;
+		i++;
+	}
+	a_map->map_str = NULL;
+	a_map->start_x = 0;
+	a_map->start_y = 0;
+	a_map->column = 0;
+	a_map->record = 0;
+	a_map->item_num = 0;
+	a_map->move_count = 0;
 }
 
 int	main(int argc, char **argv)
 {
-	t_map	r_vars;
+	t_map	r_map;
 
-	//t_map構造体の初期化処理が必要かも
-	r_vars.move_count = 0;
-	r_vars.map_str = ft_map_str(argv);
-	if (r_vars.map_str == NULL)
-		return (0);
-	ft_map_len(&r_vars);//マップの行数、列数を取得
-	if (ft_error_check(argc, argv, &r_vars))
+	ft_init_map(&r_map);
+	if (ft_error_check(argc, argv, &r_map))
 	{
-		free(r_vars.map_str);
+		ft_printf("Error\n");
+		free(r_map.map_str);
 		return (0);
 	}
 	for (int i = 0; i < 6; i++) {
-		ft_printf("map_str[%d] = %s", i, r_vars.map_str[i]);
+		ft_printf("map_str[%d] = %s", i, r_map.map_str[i]);
 	}
-	r_vars.mlx = mlx_init();
-	ft_printf("\ncolumn = %z, record = %z\n", r_vars.column, r_vars.record);
-	r_vars.win = mlx_new_window(r_vars.mlx, 64 * r_vars.record, 64 * r_vars.column, "Hello world!");
-	// r_vars.data = (t_data *)ft_calloc(5, sizeof(t_data *));
-	ft_set_img(r_vars.img_data, r_vars.mlx);//画像の読み込み
-	mlx_loop_hook(r_vars.mlx, ft_map_put_img, &r_vars);
-	mlx_loop(r_vars.mlx);
-	// free (r_vars.data->img);
+	r_map.mlx = mlx_init();
+	ft_printf("\ncolumn = %z, record = %z\n", r_map.column, r_map.record);
+	r_map.win = mlx_new_window(r_map.mlx, 64 * r_map.record,
+			64 * r_map.column, "Hello world!");
+	ft_set_img(r_map.img_data, r_map.mlx);
+	mlx_loop_hook(r_map.mlx, ft_map_put_img, &r_map);
+	mlx_loop(r_map.mlx);
+	// free (r_map.data->img);
 	return (0);
 }
