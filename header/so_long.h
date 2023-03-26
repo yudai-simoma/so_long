@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/25 21:19:55 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/26 13:58:53 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_stack {
 	//スタックされているデータ
 	t_cell	*data;
 	int		max_num;
+	int		c_num;
+	int		e_num;
 }	t_stack;
 
 //main.c
@@ -98,18 +100,18 @@ void	ft_move_right(t_map *r_vars);
 void	ft_move_down(t_map *r_vars);
 void	ft_move_left(t_map *r_vars);
 //dfs.c
-int		ft_map_path_check(t_map *a_map);
-int		ft_search(t_map *a_map, t_stack	*a_stack, t_cell *a_cell);
+int		ft_map_path_check(t_map *a_map, t_error *a_error);
+void	ft_search(t_map *a_map, t_stack *a_stack, t_cell *l_start);
 int		ft_check(t_map *a_map, int x, int y);
 //dfs_utils.c
-int	ft_check_move_up(t_cell *a_cell, t_stack *a_stack,
-			t_cell *a_next, t_map *a_map);
-int	ft_check_move_down(t_cell *a_cell, t_stack *a_stack,
-			t_cell *a_next, t_map *a_map);
-int	ft_check_move_right(t_cell *a_cell, t_stack *a_stack,
-			t_cell *a_next, t_map *a_map);
-int	ft_check_move_left(t_cell *a_cell, t_stack *a_stack,
-			t_cell *a_next, t_map *a_map);
+// int	ft_check_move_up(t_cell *a_cell, t_stack *a_stack,
+// 			t_cell *a_next, t_map *a_map);
+// int	ft_check_move_down(t_cell *a_cell, t_stack *a_stack,
+// 			t_cell *a_next, t_map *a_map);
+// int	ft_check_move_right(t_cell *a_cell, t_stack *a_stack,
+// 			t_cell *a_next, t_map *a_map);
+// int	ft_check_move_left(t_cell *a_cell, t_stack *a_stack,
+// 			t_cell *a_next, t_map *a_map);
 //stack.c
 void	ft_init_stack(t_stack *a_stack);
 void	ft_push(t_stack *a_stack, t_cell *a_input);

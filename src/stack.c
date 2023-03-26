@@ -6,12 +6,11 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:44:49 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/25 21:58:08 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:18:52 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdbool.h>
 
 /*
  * スタックを初期化する
@@ -20,6 +19,9 @@
 void	ft_init_stack(t_stack *a_stack)
 {
 	a_stack->tail = -1;
+	a_stack->c_num = 0;
+	a_stack->e_num = 0;
+	a_stack->max_num = 0;
 }
 
 /*
@@ -53,13 +55,6 @@ t_cell	*ft_pop(t_stack *a_stack)
 	r_return_cell = &(a_stack->data[a_stack->tail]);
 	a_stack->tail--;
 	return (r_return_cell);
-}
-
-bool	ft_is_empty(t_stack *a_stack)
-{
-	if (a_stack->tail == -1)
-		return (true);
-	return (false);
 }
 
 void ft_print_stack(t_stack *a_stack)

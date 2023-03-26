@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:45:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/25 16:57:24 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/26 13:07:15 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	ft_error_check(int a_argc, char **a_argv, t_map *a_map)
 		return (1);
 	if (!ft_enclose_check(&r_error, a_map))
 		return (1);
-	if (!ft_map_path_check(a_map))
+	if (!ft_map_path_check(a_map, &r_error))
 		return (1);
 	a_map->item_num = r_error.c_num;
 	return (0);

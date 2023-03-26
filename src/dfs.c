@@ -5,22 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 10:40:02 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/25 22:17:31 by yshimoma         ###   ########.fr       */
+/*   Created: 2023/03/26 12:15:54 by yshimoma          #+#    #+#             */
+/*   Updated: 2023/03/26 16:43:21 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-//深さ優先探索
-//ここからがDFSのソース
-
-/* (i,j) が通過可能なマスかどうかを確認する関数 */
-/*
- * 
- * 1が壁、2が通過したマス
- */
-int	ft_check(t_map *a_map, int x, int y)
+static int	ft_move_sell_check(t_map *a_map, int x, int y)
 {
 	if (a_map->map_str[x][y] == '1')
 		return (0);
@@ -29,90 +21,101 @@ int	ft_check(t_map *a_map, int x, int y)
 	return (1);
 }
 
-#include <stdio.h>
-
-/* スタート(i,j)からゴールを探索する関数*/
-int	ft_search(t_map *a_map, t_stack	*a_stack, t_cell *a_cell)
+int	ft_cell_move(t_map *a_map, t_stack *a_stack, int x, int y)
 {
-	t_cell	*r_next;
-	bool has_next;
+	t_cell	l_next;
 
-	while (!ft_is_empty(a_stack))
+	if (ft_move_sell_check(a_map, x, y))
 	{
-		printf("tail %d\n", a_stack->tail);
-		ft_print_stack(a_stack);
-		r_next = ft_pop(a_stack);
-		if (r_next == NULL)
-			return (0);
-		ft_push(a_stack, r_next);
-		if (a_map->map_str[r_next->x][r_next->y] == 'E')
-			return (1);
-		// a_map->map_str[r_next->x][r_next->y] = '2';
-		has_next = false;
-		if (ft_check_move_up(a_cell, a_stack, r_next, a_map))
-			has_next = true;
-		else if (ft_check_move_down(a_cell, a_stack, r_next, a_map))
-			has_next = true;
-		else if (ft_check_move_right(a_cell, a_stack, r_next, a_map))
-			has_next = true;
-		else if (ft_check_move_left(a_cell, a_stack, r_next, a_map))
-			has_next = true;
-		if (!has_next){
-			ft_pop(a_stack);			
-		}
-	}
-	return 0;
-}
-
-int	ft_map_path_check(t_map *a_map)
-{
-	t_stack	r_stack;
-	t_cell	r_cell;
-
-	if (a_map->column > INT_MAX / a_map->record)
-		return (1);
-	r_stack.max_num = a_map->column * a_map->record;
-	r_stack.data = (t_cell *)malloc(sizeof(t_cell) * r_stack.max_num);
-	ft_init_stack(&r_stack);
-	/* 次の探索候補としてスタートのマスの情報をスタックに格納 */
-	if (ft_check(a_map, a_map->start_x, a_map->start_y))
-	{
-		/* スタートのi座標*/
-		r_cell.x = a_map->start_x;
-		/* スタートのj座標*/
-		r_cell.y = a_map->start_y;
-		/* スタックにマスの情報を格納*/
-		a_map->map_str[r_cell.x][r_cell.y] = '2';	
-		ft_push(&r_stack, &r_cell);
-	}
-	ft_print_stack(&r_stack);
-	if (ft_search(a_map, &r_stack, &r_cell))
-	{
-		for (int i = 0; i < 6; i++) {
-			ft_printf("map_str[%d] = %s", i, a_map->map_str[i]);
-		}
-		printf("\n");
-		printf("\n");
-		free(r_stack.data);
+		l_next.x = x;
+		l_next.y = y;
+		if (a_map->map_str[x][y] == 'E')
+			a_stack->e_num++;
+		else if (a_map->map_str[x][y] == 'C')
+			a_stack->c_num++;
+		a_map->map_str[x][y] = '2';
+		ft_push(a_stack, &l_next);
 		return (1);
 	}
-	free(r_stack.data);
 	return (0);
 }
 
-// int	main(void)
-// {
-// 	initStack(&stack);
+static int	ft_search_sub(t_map *a_map, t_stack *a_stack, t_cell *a_next)
+{
+	int	l_return_flg;
 
-// 	/* ゴールの位置を設定 */
-// 	maze[5][3] = GOAL;
+	l_return_flg = 0;
+	if (ft_cell_move(a_map, a_stack, a_next->x, a_next->y - 1))
+	{
+		a_next->y--;
+		l_return_flg++;
+	}
+	else if (ft_cell_move(a_map, a_stack, a_next->x, a_next->y + 1))
+	{
+		a_next->y++;
+		l_return_flg++;
+	}
+	else if (ft_cell_move(a_map, a_stack, a_next->x - 1, a_next->y))
+	{
+		a_next->x--;
+		l_return_flg++;
+	}
+	else if (ft_cell_move(a_map, a_stack, a_next->x + 1, a_next->y))
+	{
+		a_next->x++;
+		l_return_flg++;
+	}
+	return (l_return_flg);
+}
 
-// 	/* スタート位置を(1,3)として開始 */
-// 	if (ft_search(1, 3)) {
-// 		printf("ゴールが見つかりました！\n");
-// 	} else {
-// 		printf("ゴールが見つかりません！\n");
-// 	}
+/*
+dfs_TODO
 
-// 	return 0;
-// }
+スタート地点をスタックに格納
+スタート地点から、上下左右に移動できるかcheckし、移動できる場合はスタックに格納
+最初に上に行ったらその次は、上に行き格納できたスタックを取り出し上下左右の移動を繰り返す。
+全て探索する
+移動できる場所が無くなったら（スタックがNULL）処理を終了
+
+Eの数および、Cの数を数え、チェックする
+*/
+
+void	ft_search(t_map *a_map, t_stack *a_stack, t_cell *a_start)
+{
+	t_cell	*l_next;
+
+	while (1)
+	{
+		l_next = ft_pop(a_stack);
+		if (l_next == NULL)
+			return ;
+		ft_push(a_stack, l_next);
+		if (!ft_search_sub(a_map, a_stack, l_next))
+			l_next = ft_pop(a_stack);
+	}
+}
+
+int	ft_map_path_check(t_map *a_map, t_error *a_error)
+{
+	t_stack	l_stack;
+	t_cell	l_start;
+
+	ft_init_stack(&l_stack);
+	if (a_map->column > INT_MAX / a_map->record)
+		return (0);
+	l_stack.max_num = a_map->column * a_map->record;
+	l_stack.data = (t_cell *)malloc(sizeof(t_cell) * l_stack.max_num);
+	if (l_stack.data == NULL)
+		return (0);
+	if (ft_move_sell_check(a_map, a_map->start_x, a_map->start_y))
+	{
+		l_start.x = a_map->start_x;
+		l_start.y = a_map->start_y;
+		ft_push(&l_stack, &l_start);
+	}
+	ft_search(a_map, &l_stack, &l_start);
+	free(l_stack.data);
+	if (l_stack.e_num != 1 || l_stack.c_num != a_error->c_num)
+		return (0);
+	return (1);
+}
