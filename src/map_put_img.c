@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:18:58 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 15:50:37 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/26 20:55:00 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ static void	ft_map_put_img_sub(t_map *a_map, size_t i, size_t j)
 		mlx_put_image_to_window(a_map->mlx, a_map->win,
 			a_map->img_data[1].img, j * 64, i * 64);
 	else if (a_map->map_str[i][j] == 'C')
-		mlx_put_image_to_window(a_map->mlx,
-			a_map->win, a_map->img_data[2].img, j * 64, i * 64);
+		mlx_put_image_to_window(a_map->mlx, a_map->win,
+			a_map->img_data[2].img, j * 64, i * 64);
 	else if (a_map->map_str[i][j] == 'E')
-		mlx_put_image_to_window(a_map->mlx,
-			a_map->win, a_map->img_data[3].img, j * 64, i * 64);
+		mlx_put_image_to_window(a_map->mlx, a_map->win,
+			a_map->img_data[3].img, j * 64, i * 64);
 	else if (a_map->map_str[i][j] == 'P')
-		mlx_put_image_to_window(a_map->mlx,
-			a_map->win, a_map->img_data[4].img, j * 64, i * 64);
+		mlx_put_image_to_window(a_map->mlx, a_map->win,
+			a_map->img_data[4].img, j * 64, i * 64);
 }
 
 /*

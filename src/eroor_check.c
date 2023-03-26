@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:45:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 13:07:15 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:09:53 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,33 @@ static int	ft_enclose_check(t_error *a_error, t_map *a_map)
 	return (1);
 }
 
+static void	ft_char_set(t_error *a_error, t_map *a_map)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < a_map->column)
+	{
+		j = 0;
+		while (j < a_map->record)
+		{
+			if (a_map->map_str[i][j] == 'C')
+				a_error->c_num++;
+			else if (a_map->map_str[i][j] == 'P')
+			{
+				a_map->start_x = i;
+				a_map->start_y = j;
+				a_error->p_num++;
+			}
+			else if (a_map->map_str[i][j] == 'E')
+				a_error->e_num++;
+			j++;
+		}
+		i++;
+	}
+}
+
 /*
  *  ・地図はこの5文字だけで構成することができます：
  *  ・マップには、1つの出口、少なくとも1つの収集品、1つのスタート地点が含まれていなければなりません。
@@ -65,21 +92,27 @@ static int	ft_char_check(t_error *a_error, t_map *a_map)
 		{
 			if (ft_strchr("01CEP", a_map->map_str[i][j]) == NULL)
 				return (0);
-			else if (a_map->map_str[i][j] == 'C')
-				a_error->c_num++;
-			else if (a_map->map_str[i][j] == 'P')
-			{
-				a_map->start_x = i;
-				a_map->start_y = j;
-				a_error->p_num++;
-			}
-			else if (a_map->map_str[i][j] == 'E')
-				a_error->e_num++;
 			j++;
 		}
 		i++;
 	}
+	a_error->c_num = 0;
+	a_error->p_num = 0;
+	a_error->e_num = 0;
+	ft_char_set(a_error, a_map);
+	if (a_error->c_num < 1 || a_error->p_num != 1 || a_error->e_num != 1)
+		return (0);
 	return (1);
+}
+
+static int	ft_file_check(char *a_name, t_error	*a_error)
+{
+	if (a_name[a_error->name_len - 4] != '.'
+		|| a_name[a_error->name_len - 3] != 'b'
+		|| a_name[a_error->name_len - 2] != 'e'
+		|| a_name[a_error->name_len - 1] != 'r')
+		return (1);
+	return (0);
 }
 
 /*
@@ -92,21 +125,13 @@ int	ft_error_check(int a_argc, char **a_argv, t_map *a_map)
 	if (a_argc != 2)
 		return (1);
 	r_error.name_len = ft_strlen(a_argv[1]);
-	if (a_argv[1][r_error.name_len - 4] != '.'
-		|| a_argv[1][r_error.name_len - 3] != 'b'
-		|| a_argv[1][r_error.name_len - 2] != 'e'
-		|| a_argv[1][r_error.name_len - 1] != 'r')
+	if (ft_file_check(a_argv[1], &r_error))
 		return (1);
 	a_map->map_str = ft_map_str(a_argv);
 	if (a_map->map_str == NULL)
 		return (0);
 	ft_map_len(a_map);
-	r_error.c_num = 0;
-	r_error.p_num = 0;
-	r_error.e_num = 0;
 	if (!ft_char_check(&r_error, a_map))
-		return (1);
-	if (r_error.c_num < 1 || r_error.p_num != 1 || r_error.e_num != 1)
 		return (1);
 	if ((a_map->column == a_map->record)
 		&& (a_map->column >= 3 && a_map->record >= 3))

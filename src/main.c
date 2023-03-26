@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 12:25:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 16:45:17 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/26 20:57:12 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ void	ft_set_img(t_data *a_img, void *a_mlx)
 	int		img_height;
 
 	a_img[0].img = mlx_png_file_to_image(a_mlx,
-			"./img/base.png", &img_width, &img_height);
+			"./img/heaven.png", &img_width, &img_height);
 	a_img[1].img = mlx_png_file_to_image(a_mlx,
-			"./img/light.png", &img_width, &img_height);
+			"./img/snake.png", &img_width, &img_height);
 	a_img[2].img = mlx_png_file_to_image(a_mlx,
-			"./img/light.png", &img_width, &img_height);
+			"./img/apple.png", &img_width, &img_height);
 	a_img[3].img = mlx_png_file_to_image(a_mlx,
-			"./img/light.png", &img_width, &img_height);
+			"./img/hell.png", &img_width, &img_height);
 	a_img[4].img = mlx_png_file_to_image(a_mlx,
-			"./img/light.png", &img_width, &img_height);
+			"./img/girl.png", &img_width, &img_height);
 }
 
 void	ft_map_len(t_map *r_map)
@@ -69,17 +69,20 @@ void	ft_init_map(t_map *a_map)
 	a_map->move_count = 0;
 }
 
-int	main(int argc, char **argv)
+int	main(int a_argc, char **a_argv)
 {
 	t_map	r_map;
 
 	ft_init_map(&r_map);
-	if (ft_error_check(argc, argv, &r_map))
+	if (ft_error_check(a_argc, a_argv, &r_map))
 	{
 		ft_printf("Error\n");
 		free(r_map.map_str);
 		return (0);
 	}
+	r_map.map_str = ft_map_str(a_argv);
+	if (r_map.map_str == NULL)
+		return (0);
 	for (int i = 0; i < 6; i++) {
 		ft_printf("map_str[%d] = %s", i, r_map.map_str[i]);
 	}

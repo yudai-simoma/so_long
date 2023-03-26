@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:44:49 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 16:18:52 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:07:03 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ t_cell	*ft_pop(t_stack *a_stack)
 	return (r_return_cell);
 }
 
-void ft_print_stack(t_stack *a_stack)
-{
-	for (int i = 0; i <= a_stack->tail; i++)
-	{
-		ft_printf("(x : %d, y : %d)", a_stack->data[i].y, a_stack->data[i].x);
-	}
-	ft_printf("\n");
-}
+// void ft_print_stack(t_stack *a_stack)
+// {
+// 	for (int i = 0; i <= a_stack->tail; i++)
+// 	{
+// 		ft_printf("(x : %d, y : %d)", a_stack->data[i].y, a_stack->data[i].x);
+// 	}
+// 	ft_printf("\n");
+// }
