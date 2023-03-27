@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 12:25:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 20:57:12 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:56:33 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ void	ft_set_img(t_data *a_img, void *a_mlx)
 	int		img_width;
 	int		img_height;
 
-	a_img[0].img = mlx_png_file_to_image(a_mlx,
-			"./img/heaven.png", &img_width, &img_height);
-	a_img[1].img = mlx_png_file_to_image(a_mlx,
-			"./img/snake.png", &img_width, &img_height);
-	a_img[2].img = mlx_png_file_to_image(a_mlx,
-			"./img/apple.png", &img_width, &img_height);
-	a_img[3].img = mlx_png_file_to_image(a_mlx,
-			"./img/hell.png", &img_width, &img_height);
-	a_img[4].img = mlx_png_file_to_image(a_mlx,
-			"./img/girl.png", &img_width, &img_height);
+	a_img[0].img = mlx_xpm_file_to_image(a_mlx,
+			"./img/heaven.xpm", &img_width, &img_height);
+	a_img[1].img = mlx_xpm_file_to_image(a_mlx,
+			"./img/snake.xpm", &img_width, &img_height);
+	a_img[2].img = mlx_xpm_file_to_image(a_mlx,
+			"./img/apple.xpm", &img_width, &img_height);
+	a_img[3].img = mlx_xpm_file_to_image(a_mlx,
+			"./img/hell.xpm", &img_width, &img_height);
+	a_img[4].img = mlx_xpm_file_to_image(a_mlx,
+			"./img/girl.xpm", &img_width, &img_height);
 }
 
 void	ft_map_len(t_map *r_map)
@@ -63,6 +63,8 @@ void	ft_init_map(t_map *a_map)
 	a_map->map_str = NULL;
 	a_map->start_x = 0;
 	a_map->start_y = 0;
+	a_map->end_x = 0;
+	a_map->end_y = 0;
 	a_map->column = 0;
 	a_map->record = 0;
 	a_map->item_num = 0;
@@ -80,19 +82,21 @@ int	main(int a_argc, char **a_argv)
 		free(r_map.map_str);
 		return (0);
 	}
+	free(r_map.map_str);
+	r_map.map_str = NULL;
 	r_map.map_str = ft_map_str(a_argv);
 	if (r_map.map_str == NULL)
 		return (0);
-	for (int i = 0; i < 6; i++) {
-		ft_printf("map_str[%d] = %s", i, r_map.map_str[i]);
-	}
+	// for (int i = 0; i < 6; i++) {
+	// 	ft_printf("map_str[%d] = %s", i, r_map.map_str[i]);
+	// }
 	r_map.mlx = mlx_init();
-	ft_printf("\ncolumn = %z, record = %z\n", r_map.column, r_map.record);
-	r_map.win = mlx_new_window(r_map.mlx, 64 * r_map.record,
-			64 * r_map.column, "Hello world!");
+	// ft_printf("\ncolumn = %z, record = %z\n", r_map.column, r_map.record);
+	r_map.win = mlx_new_window(r_map.mlx, 50 * r_map.record,
+			50 * r_map.column, "Hello world!");
 	ft_set_img(r_map.img_data, r_map.mlx);
 	mlx_loop_hook(r_map.mlx, ft_map_put_img, &r_map);
 	mlx_loop(r_map.mlx);
-	// free (r_map.data->img);
+	free(r_map.map_str);
 	return (0);
 }

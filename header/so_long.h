@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 13:58:53 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:54:04 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_map {
 	char	**map_str;
 	size_t	start_x;
 	size_t	start_y;
+	size_t	end_x;
+	size_t	end_y;
 	size_t	column;
 	size_t	record;
 	size_t	item_num;

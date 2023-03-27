@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 11:47:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/25 14:24:08 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:29:01 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,19 @@
  */
 int	ft_move_check(t_map *r_map, size_t x, size_t y)
 {
-	if ((r_map->map_str[x][y] == '1')
-		|| (r_map->map_str[x][y] == 'E' && r_map->item_num != 0))
+	if (r_map->map_str[x][y] == '1')
 		return (0);
+	else if ((r_map->map_str[x][y] == 'E') && (r_map->item_num != 0))
+		return (2);
+	else if (r_map->map_str[x][y] == 'X')
+		return (3);
 	else if (r_map->map_str[x][y] == 'C')
 		r_map->item_num--;
-	else if (r_map->map_str[x][y] == 'E' && r_map->item_num == 0)
+	else if ((r_map->map_str[x][y] == 'E') && (r_map->item_num == 0))
 	{
+		ft_printf("I finished in %z steps.", r_map->move_count);
 		mlx_destroy_window(r_map->mlx, r_map->win);
+		free(r_map->map_str);
 		exit(0);
 	}
 	return (1);
@@ -47,11 +52,20 @@ int	ft_move_check(t_map *r_map, size_t x, size_t y)
  */
 void	ft_move_up(t_map *r_map)
 {
-	if (!ft_move_check(r_map, r_map->start_x - 1, r_map->start_y))
+	int	flg;
+
+	flg = ft_move_check(r_map, r_map->start_x - 1, r_map->start_y);
+	if (flg == 0)
 		return ;
-	r_map->map_str[r_map->start_x][r_map->start_y] = '0';
+	if (ft_move_check(r_map, r_map->start_x, r_map->start_y) == 3)
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'E';
+	else
+		r_map->map_str[r_map->start_x][r_map->start_y] = '0';
 	r_map->start_x--;
-	r_map->map_str[r_map->start_x][r_map->start_y] = 'P';
+	if (flg != 2)
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'P';
+	else
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'X';
 	ft_printf("Number of moves %z\n", ++r_map->move_count);
 }
 
@@ -65,11 +79,20 @@ void	ft_move_up(t_map *r_map)
  */
 void	ft_move_right(t_map *r_map)
 {
-	if (!ft_move_check(r_map, r_map->start_x, r_map->start_y + 1))
+	int	flg;
+
+	flg = ft_move_check(r_map, r_map->start_x, r_map->start_y + 1);
+	if (flg == 0)
 		return ;
-	r_map->map_str[r_map->start_x][r_map->start_y] = '0';
+	if (ft_move_check(r_map, r_map->start_x, r_map->start_y) == 3)
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'E';
+	else
+		r_map->map_str[r_map->start_x][r_map->start_y] = '0';
 	r_map->start_y++;
-	r_map->map_str[r_map->start_x][r_map->start_y] = 'P';
+	if (flg != 2)
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'P';
+	else
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'X';
 	ft_printf("Number of moves %z\n", ++r_map->move_count);
 }
 
@@ -83,11 +106,20 @@ void	ft_move_right(t_map *r_map)
  */
 void	ft_move_down(t_map *r_map)
 {
-	if (!ft_move_check(r_map, r_map->start_x + 1, r_map->start_y))
+	int	flg;
+
+	flg = ft_move_check(r_map, r_map->start_x + 1, r_map->start_y);
+	if (flg == 0)
 		return ;
-	r_map->map_str[r_map->start_x][r_map->start_y] = '0';
+	if (ft_move_check(r_map, r_map->start_x, r_map->start_y) == 3)
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'E';
+	else
+		r_map->map_str[r_map->start_x][r_map->start_y] = '0';
 	r_map->start_x++;
-	r_map->map_str[r_map->start_x][r_map->start_y] = 'P';
+	if (flg != 2)
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'P';
+	else
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'X';
 	ft_printf("Number of moves %z\n", ++r_map->move_count);
 }
 
@@ -101,10 +133,19 @@ void	ft_move_down(t_map *r_map)
  */
 void	ft_move_left(t_map *r_map)
 {
-	if (!ft_move_check(r_map, r_map->start_x, r_map->start_y - 1))
+	int	flg;
+
+	flg = ft_move_check(r_map, r_map->start_x, r_map->start_y - 1);
+	if (flg == 0)
 		return ;
-	r_map->map_str[r_map->start_x][r_map->start_y] = '0';
+	if (ft_move_check(r_map, r_map->start_x, r_map->start_y) == 3)
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'E';
+	else
+		r_map->map_str[r_map->start_x][r_map->start_y] = '0';
 	r_map->start_y--;
-	r_map->map_str[r_map->start_x][r_map->start_y] = 'P';
+	if (flg != 2)
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'P';
+	else
+		r_map->map_str[r_map->start_x][r_map->start_y] = 'X';
 	ft_printf("Number of moves %z\n", ++r_map->move_count);
 }

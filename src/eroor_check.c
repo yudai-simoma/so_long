@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:45:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 17:09:53 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:53:29 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ static void	ft_char_set(t_error *a_error, t_map *a_map)
 				a_error->p_num++;
 			}
 			else if (a_map->map_str[i][j] == 'E')
+			{
+				a_map->end_x = i;
+				a_map->end_y = j;
 				a_error->e_num++;
+			}
 			j++;
 		}
 		i++;

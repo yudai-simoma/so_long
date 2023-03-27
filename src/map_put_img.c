@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:18:58 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 20:55:00 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:29:00 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	ft_key_hook(int r_keycode, void *a_map)
 	else if (r_keycode == 53)
 	{
 		mlx_destroy_window(r_map->mlx, r_map->win);
+		free(r_map->map_str);
 		exit (0);
 	}
 	return (0);
@@ -46,6 +47,10 @@ static int	ft_key_hook(int r_keycode, void *a_map)
 
 static int	ft_mouse_hook(int r_keycode, void *a_map)
 {
+	t_map	*r_map;
+
+	r_map = (t_map *)a_map;
+	free(r_map->map_str);
 	exit(0);
 	return (0);
 }
@@ -65,16 +70,19 @@ static void	ft_map_put_img_sub(t_map *a_map, size_t i, size_t j)
 {
 	if (a_map->map_str[i][j] == '1')
 		mlx_put_image_to_window(a_map->mlx, a_map->win,
-			a_map->img_data[1].img, j * 64, i * 64);
+			a_map->img_data[1].img, j * 50, i * 50);
 	else if (a_map->map_str[i][j] == 'C')
 		mlx_put_image_to_window(a_map->mlx, a_map->win,
-			a_map->img_data[2].img, j * 64, i * 64);
-	else if (a_map->map_str[i][j] == 'E')
-		mlx_put_image_to_window(a_map->mlx, a_map->win,
-			a_map->img_data[3].img, j * 64, i * 64);
+			a_map->img_data[2].img, j * 50, i * 50);
+	// else if (a_map->map_str[i][j] == 'E')
+	// 	mlx_put_image_to_window(a_map->mlx, a_map->win,
+	// 		a_map->img_data[3].img, j * 50, i * 50);
 	else if (a_map->map_str[i][j] == 'P')
 		mlx_put_image_to_window(a_map->mlx, a_map->win,
-			a_map->img_data[4].img, j * 64, i * 64);
+			a_map->img_data[4].img, j * 50, i * 50);
+	else if (a_map->map_str[i][j] == 'X')
+		mlx_put_image_to_window(a_map->mlx, a_map->win,
+			a_map->img_data[4].img, j * 50, i * 50);
 }
 
 /*
@@ -97,6 +105,8 @@ int	ft_map_put_img(void *a_map)
 	mlx_hook(r_map->win, ON_DESTROY, 1L << 0, ft_mouse_hook, (void *)r_map);
 	mlx_put_image_to_window(r_map->mlx,
 		r_map->win, r_map->img_data[0].img, 0, 0);
+	mlx_put_image_to_window(r_map->mlx,
+		r_map->win, r_map->img_data[3].img, r_map->end_y * 50, r_map->end_x * 50);
 	i = 0;
 	while (i < r_map->column)
 	{
@@ -107,6 +117,9 @@ int	ft_map_put_img(void *a_map)
 			j++;
 		}
 		i++;
+	}
+	for (int i = 0; i < 6; i++) {
+		ft_printf("map_str[%d] = %s", i, r_map->map_str[i]);
 	}
 	return (0);
 }
