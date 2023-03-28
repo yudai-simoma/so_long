@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 11:35:21 by yshimoma          #+#    #+#              #
-#    Updated: 2023/03/26 12:03:49 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/03/28 17:38:27 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJ_DIR	=	./obj
 OBJS = ${OBJ_DIR}/${addprefix(SRCS_DIR, SRCS):.c=.o}
 INCLUDE = ./header
 CC = cc
-C_FLAGS = -Wall -Wextra #-Werror
+C_FLAGS = -Wall -Wextra -fsanitize=address #-Werror
 AR = ar
 AR_FLAGS = rcs
 

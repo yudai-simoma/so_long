@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/27 20:54:04 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:16:23 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_stack {
 //main.c
 void	ft_map_len(t_map *r_vars);
 void	ft_set_img(t_data *a_img, void *a_mlx);
+void	ft_free_str(char **str);
 //error_check.c
 int		ft_error_check(int argc, char **argv, t_map *r_vars);
 //map_str.c

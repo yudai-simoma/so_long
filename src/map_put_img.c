@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:18:58 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/27 21:52:25 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:55:32 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,29 @@ static int	ft_key_hook(int r_keycode, void *a_map)
 	else if (r_keycode == 53)
 	{
 		mlx_destroy_window(r_map->mlx, r_map->win);
-		free(r_map->map_str);
+		ft_printf("key hook \n");
+		ft_free_str(r_map->map_str);
 		exit (0);
 	}
 	return (0);
 }
 
-static int	ft_mouse_hook(int r_keycode, void *a_map)
+static int	ft_mouse_hook(void *a_map)
 {
 	t_map	*r_map;
 
 	r_map = (t_map *)a_map;
-	free(r_map->map_str);
+	ft_printf("mouse hook\n");
+	size_t i = 0;
+	while (i < 5)
+	{
+		ft_printf("free : %p\n", r_map->map_str[i]);
+		i++;
+	}
+	ft_printf("r %p\n", r_map);
+	ft_printf("a %p\n", a_map);
+	mlx_destroy_window(r_map->mlx, r_map->win);
+	ft_free_str(r_map->map_str);
 	exit(0);
 	return (0);
 }
@@ -118,8 +129,8 @@ int	ft_map_put_img(void *a_map)
 		}
 		i++;
 	}
-	for (int i = 0; i < 6; i++) {
-		ft_printf("map_str[%d] = %s", i, r_map->map_str[i]);
-	}
+	// for (int i = 0; i < 6; i++) {
+	// 	ft_printf("map_str[%d] = %s", i, r_map->map_str[i]);
+	// }
 	return (0);
 }

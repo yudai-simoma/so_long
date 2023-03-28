@@ -6,11 +6,25 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 12:25:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/27 20:56:33 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:37:29 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_free_str(char **str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != NULL)
+	{
+		ft_printf("free : %p\n", str[i]);
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
 
 /*
  * 画像データを使用可能な変数へ格納する
@@ -79,10 +93,11 @@ int	main(int a_argc, char **a_argv)
 	if (ft_error_check(a_argc, a_argv, &r_map))
 	{
 		ft_printf("Error\n");
-		free(r_map.map_str);
+		ft_free_str(r_map.map_str);
 		return (0);
 	}
-	free(r_map.map_str);
+	ft_printf("not error hook\n");
+	ft_free_str(r_map.map_str);
 	r_map.map_str = NULL;
 	r_map.map_str = ft_map_str(a_argv);
 	if (r_map.map_str == NULL)
@@ -97,6 +112,13 @@ int	main(int a_argc, char **a_argv)
 	ft_set_img(r_map.img_data, r_map.mlx);
 	mlx_loop_hook(r_map.mlx, ft_map_put_img, &r_map);
 	mlx_loop(r_map.mlx);
-	free(r_map.map_str);
+	// ft_free_str(r_map.map_str);
 	return (0);
+}
+
+#include <libc.h>
+
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q a.out");
 }
