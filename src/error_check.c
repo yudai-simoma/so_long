@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:45:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/30 19:17:56 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:16:49 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,30 @@
 /*
  * ・地図が壁で囲まれている必要がある。
  */
-static int	ft_enclose_check(t_error *a_error, t_map *a_map)
+static int	ft_enclose_check(t_map *a_map)
 {
 	size_t	i;
 
 	i = 0;
-	while ((i < a_map->record) && (a_map->map_str[0][i] == '1'
+	while ((a_map->map_str[0][i] != '\0')
+		&& (a_map->map_str[a_map->column - 1] != NULL)
+		&& (i < a_map->record)
+		&& (a_map->map_str[0][i] == '1'
 		&& a_map->map_str[a_map->column - 1][i] == '1'))
-		i++;
-	if (i != a_map->record)
-		return (0);
-	i = 0;
-	while (a_map->map_str[i] == NULL)
 	{
-		if (a_map->map_str[i][0] != '1' &&
-			a_map->map_str[i][a_map->record -1] != '1')
-			return (0);
 		i++;
 	}
-	return (1);
+	if (i != a_map->record)
+		return (1);
+	i = 0;
+	while ((i < a_map->column) && a_map->map_str[i] != NULL)
+	{
+		if (a_map->map_str[i][0] != '1' ||
+			a_map->map_str[i][a_map->record -1] != '1')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 static void	ft_set_xy(t_map *a_map, size_t i, size_t j, char c)
@@ -107,7 +112,7 @@ static int	ft_char_check(t_error *a_error, t_map *a_map)
 		while (j < a_map->record)
 		{
 			if (ft_strchr("01CEP", a_map->map_str[i][j]) == NULL)
-				return (0);
+				return (1);
 			j++;
 		}
 		i++;
@@ -117,8 +122,8 @@ static int	ft_char_check(t_error *a_error, t_map *a_map)
 	a_error->e_num = 0;
 	ft_char_set(a_error, a_map);
 	if (a_error->c_num < 1 || a_error->p_num != 1 || a_error->e_num != 1)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 /*
@@ -134,17 +139,16 @@ int	ft_error_check(int a_argc, char **a_argv, t_map *a_map)
 	if (ft_file_check(a_argv[1], &r_error))
 		return (1);
 	a_map->map_str = ft_map_str(a_argv);
-	if (a_map->map_str == NULL)
-		return (0);
-	ft_map_len(a_map);
-	if (!ft_char_check(&r_error, a_map))
+	if (a_map->map_str == NULL || a_map->map_str[0] == NULL)
 		return (1);
-	if ((a_map->column == a_map->record)
-		&& (a_map->column >= 3 && a_map->record >= 3))
+	ft_max_map_len(a_map);
+	if (ft_size_check(a_map))
 		return (1);
-	if (!ft_enclose_check(&r_error, a_map))
+	if (ft_enclose_check(a_map))
 		return (1);
-	if (!ft_map_path_check(a_map, &r_error))
+	if (ft_char_check(&r_error, a_map))
+		return (1);
+	if (ft_map_path_check(a_map, &r_error))
 		return (1);
 	a_map->item_num = r_error.c_num;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 12:15:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/30 18:55:43 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/01 10:56:53 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ dfs_TODO
 Eの数および、Cの数を数え、チェックする
 */
 
-static void	ft_search(t_map *a_map, t_stack *a_stack, t_cell *a_start)
+static void	ft_search(t_map *a_map, t_stack *a_stack)
 {
 	t_cell	*l_next;
 
@@ -102,20 +102,20 @@ int	ft_map_path_check(t_map *a_map, t_error *a_error)
 
 	ft_init_stack(&l_stack);
 	if (a_map->column > INT_MAX / a_map->record)
-		return (0);
+		return (1);
 	l_stack.max_num = a_map->column * a_map->record;
 	l_stack.data = (t_cell *)malloc(sizeof(t_cell) * l_stack.max_num);
 	if (l_stack.data == NULL)
-		return (0);
+		return (1);
 	if (ft_move_sell_check(a_map, a_map->start_x, a_map->start_y))
 	{
 		l_start.x = a_map->start_x;
 		l_start.y = a_map->start_y;
 		ft_push(&l_stack, &l_start);
 	}
-	ft_search(a_map, &l_stack, &l_start);
+	ft_search(a_map, &l_stack);
 	free(l_stack.data);
 	if (l_stack.e_num != 1 || l_stack.c_num != a_error->c_num)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }

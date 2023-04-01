@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 11:12:35 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/30 19:18:07 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:06:43 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,19 @@ typedef struct s_stack {
 	int		tail;
 	t_cell	*data;
 	int		max_num;
-	int		c_num;
-	int		e_num;
+	size_t	c_num;
+	size_t	e_num;
 }	t_stack;
 
 //main.c
 void	ft_free_str(char **str);
-void	ft_map_len(t_map *r_vars);
+void	ft_max_map_len(t_map *a_vars);
 int		main(int a_argc, char **a_argv);
 //error_check.c
 int		ft_error_check(int a_argc, char **a_argv, t_map *a_map);
 //error_check_utils.c
 int		ft_file_check(char *a_name, t_error	*a_error);
+int		ft_size_check(t_map *a_map);
 //map_str.c
 char	**ft_map_str(char **argv);
 //map_put_img.c

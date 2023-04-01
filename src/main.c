@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 12:25:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/30 19:51:46 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:54:48 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,32 @@ static void	ft_set_img(t_data *a_img, void *a_mlx)
 			"./img/girl.xpm", &img_width, &img_height);
 }
 
-void	ft_map_len(t_map *r_map)
+void	ft_max_map_len(t_map *a_map)
 {
 	size_t	i;
+	size_t	j;
+	size_t	max_record;
+	size_t	column_flg;
 
 	i = 0;
-	while (r_map->map_str[i] != NULL)
+	max_record = 0;
+	column_flg = 1;
+	while (a_map->map_str[i] != NULL)
+	{
+		j = 0;
+		while (a_map->map_str[i][j] != '\0')
+			j++;
+		if (a_map->map_str[i][j - 1] != '\n')
+		{
+			j++;
+			column_flg = 0;
+		}
+		if (j > max_record)
+			max_record = j;
 		i++;
-	r_map->column = i;
-	r_map->record = ft_strlen(r_map->map_str[0]) - 1;
+	}
+	a_map->column = i + column_flg;
+	a_map->record = max_record - 1;
 }
 
 static void	ft_init_map(t_map *a_map)
@@ -91,7 +108,7 @@ int	main(int a_argc, char **a_argv)
 	ft_init_map(&r_map);
 	if (ft_error_check(a_argc, a_argv, &r_map))
 	{
-		ft_printf("Error\n");
+		ft_printf("Error\nMap data is incorrect.\n");
 		ft_free_str(r_map.map_str);
 		return (0);
 	}
@@ -113,5 +130,5 @@ int	main(int a_argc, char **a_argv)
 
 // __attribute__((destructor))
 // static void destructor() {
-//     system("leaks -q a.out");
+//     system("leaks -q so_long");
 // }
