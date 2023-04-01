@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eroor_check.c                                      :+:      :+:    :+:   */
+/*   error_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 14:45:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/27 20:53:29 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:17:56 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ static int	ft_enclose_check(t_error *a_error, t_map *a_map)
 	return (1);
 }
 
+static void	ft_set_xy(t_map *a_map, size_t i, size_t j, char c)
+{
+	if (c == 'p')
+	{
+		a_map->start_x = i;
+		a_map->start_y = j;
+	}
+	else if (c == 'e')
+	{
+		a_map->end_x = i;
+		a_map->end_y = j;
+	}
+}
+
 static void	ft_char_set(t_error *a_error, t_map *a_map)
 {
 	size_t	i;
@@ -62,14 +76,12 @@ static void	ft_char_set(t_error *a_error, t_map *a_map)
 				a_error->c_num++;
 			else if (a_map->map_str[i][j] == 'P')
 			{
-				a_map->start_x = i;
-				a_map->start_y = j;
+				ft_set_xy(a_map, i, j, 'p');
 				a_error->p_num++;
 			}
 			else if (a_map->map_str[i][j] == 'E')
 			{
-				a_map->end_x = i;
-				a_map->end_y = j;
+				ft_set_xy(a_map, i, j, 'e');
 				a_error->e_num++;
 			}
 			j++;
@@ -107,16 +119,6 @@ static int	ft_char_check(t_error *a_error, t_map *a_map)
 	if (a_error->c_num < 1 || a_error->p_num != 1 || a_error->e_num != 1)
 		return (0);
 	return (1);
-}
-
-static int	ft_file_check(char *a_name, t_error	*a_error)
-{
-	if (a_name[a_error->name_len - 4] != '.'
-		|| a_name[a_error->name_len - 3] != 'b'
-		|| a_name[a_error->name_len - 2] != 'e'
-		|| a_name[a_error->name_len - 1] != 'r')
-		return (1);
-	return (0);
 }
 
 /*

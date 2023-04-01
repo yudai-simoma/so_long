@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 11:47:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/28 17:34:01 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:18:45 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * 
  * 上に移動できるかはft_move_check関数を呼び確認している
  */
-int	ft_move_check(t_map *r_map, size_t x, size_t y)
+static int	ft_move_check(t_map *r_map, size_t x, size_t y)
 {
 	if (r_map->map_str[x][y] == '1')
 		return (0);
@@ -34,9 +34,8 @@ int	ft_move_check(t_map *r_map, size_t x, size_t y)
 		r_map->item_num--;
 	else if ((r_map->map_str[x][y] == 'E') && (r_map->item_num == 0))
 	{
-		ft_printf("I finished in %z steps.", r_map->move_count);
+		ft_printf("I finished in %z steps.\n", r_map->move_count);
 		mlx_destroy_window(r_map->mlx, r_map->win);
-		ft_printf("finished hook\n");
 		ft_free_str(r_map->map_str);
 		exit(0);
 	}

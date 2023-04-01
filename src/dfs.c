@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 12:15:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/26 16:43:21 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:55:43 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_move_sell_check(t_map *a_map, int x, int y)
 	return (1);
 }
 
-int	ft_cell_move(t_map *a_map, t_stack *a_stack, int x, int y)
+static int	ft_cell_move(t_map *a_map, t_stack *a_stack, int x, int y)
 {
 	t_cell	l_next;
 
@@ -80,7 +80,7 @@ dfs_TODO
 Eの数および、Cの数を数え、チェックする
 */
 
-void	ft_search(t_map *a_map, t_stack *a_stack, t_cell *a_start)
+static void	ft_search(t_map *a_map, t_stack *a_stack, t_cell *a_start)
 {
 	t_cell	*l_next;
 
