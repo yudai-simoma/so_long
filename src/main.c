@@ -6,17 +6,22 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 12:25:50 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/01 13:54:48 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:14:35 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/*
+ * マップデータの2次元配列の動的メモリを解放する
+ */
 void	ft_free_str(char **str)
 {
 	size_t	i;
 
 	i = 0;
+	if (str == NULL)
+		return ;
 	while (str[i] != NULL)
 	{
 		free(str[i]);
@@ -49,6 +54,10 @@ static void	ft_set_img(t_data *a_img, void *a_mlx)
 			"./img/girl.xpm", &img_width, &img_height);
 }
 
+/*
+ * マップの列の数と行の数を取得する
+ * 列は最大列数としている
+ */
 void	ft_max_map_len(t_map *a_map)
 {
 	size_t	i;
@@ -77,6 +86,9 @@ void	ft_max_map_len(t_map *a_map)
 	a_map->record = max_record - 1;
 }
 
+/*
+ * t_mapの構造体を初期化する
+ */
 static void	ft_init_map(t_map *a_map)
 {
 	int	i;

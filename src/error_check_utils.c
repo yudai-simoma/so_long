@@ -6,12 +6,15 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:49:59 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/01 11:17:39 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:11:24 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/*
+ * マップデータの拡張子が「.ber」かどうかの確認
+ */
 int	ft_file_check(char *a_name, t_error	*a_error)
 {
 	if (a_name[a_error->name_len - 4] != '.'
@@ -31,8 +34,6 @@ int	ft_file_check(char *a_name, t_error	*a_error)
 int	ft_size_check(t_map *a_map)
 {
 	if (a_map->column > 28 || a_map->record > 51)
-		return (1);
-	else if (a_map->column < 4 || a_map->record < 4)
 		return (1);
 	return (0);
 }

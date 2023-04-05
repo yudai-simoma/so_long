@@ -6,12 +6,15 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 12:15:54 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/04/01 10:56:53 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:08:49 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/*
+ * 進めるマスかどうかの確認（壁もしくは一度進んだマスかの判断）
+ */
 static int	ft_move_sell_check(t_map *a_map, int x, int y)
 {
 	if (a_map->map_str[x][y] == '1')
@@ -21,6 +24,10 @@ static int	ft_move_sell_check(t_map *a_map, int x, int y)
 	return (1);
 }
 
+/*
+ * 進めるマスか確認しかつ、進めたマスがゴールやアイテムのマスなら個数をカウント
+ * 一度進んだマスは'2'で埋める
+ */
 static int	ft_cell_move(t_map *a_map, t_stack *a_stack, int x, int y)
 {
 	t_cell	l_next;
@@ -40,6 +47,9 @@ static int	ft_cell_move(t_map *a_map, t_stack *a_stack, int x, int y)
 	return (0);
 }
 
+/*
+ * 上、下、右、左の順で進めるかチェックしながら確認していく
+ */
 static int	ft_search_sub(t_map *a_map, t_stack *a_stack, t_cell *a_next)
 {
 	int	l_return_flg;
@@ -69,17 +79,8 @@ static int	ft_search_sub(t_map *a_map, t_stack *a_stack, t_cell *a_next)
 }
 
 /*
-dfs_TODO
-
-スタート地点をスタックに格納
-スタート地点から、上下左右に移動できるかcheckし、移動できる場合はスタックに格納
-最初に上に行ったらその次は、上に行き格納できたスタックを取り出し上下左右の移動を繰り返す。
-全て探索する
-移動できる場所が無くなったら（スタックがNULL）処理を終了
-
-Eの数および、Cの数を数え、チェックする
-*/
-
+ * マップの通れる箇所を全探索する
+ */
 static void	ft_search(t_map *a_map, t_stack *a_stack)
 {
 	t_cell	*l_next;
@@ -95,6 +96,10 @@ static void	ft_search(t_map *a_map, t_stack *a_stack)
 	}
 }
 
+/*
+ * マップに有効なパスがあるかどうかを確認する
+ * マップを全探索し、「C, E」の個数を格納し以前に取得した個数と比較しエラーの判断をする
+ */
 int	ft_map_path_check(t_map *a_map, t_error *a_error)
 {
 	t_stack	l_stack;

@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:18:58 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/30 18:59:43 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:15:01 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static int	ft_key_hook(int r_keycode, void *a_map)
 	t_map	*r_map;
 
 	r_map = (t_map *)a_map;
-	if (r_keycode == 0 || r_keycode == 126)
+	if (r_keycode == 13 || r_keycode == 126)
 		ft_move_up(r_map);
-	else if (r_keycode == 1 || r_keycode == 124)
+	else if (r_keycode == 2 || r_keycode == 124)
 		ft_move_right(r_map);
-	else if (r_keycode == 2 || r_keycode == 125)
+	else if (r_keycode == 1 || r_keycode == 125)
 		ft_move_down(r_map);
-	else if (r_keycode == 13 || r_keycode == 123)
+	else if (r_keycode == 0 || r_keycode == 123)
 		ft_move_left(r_map);
 	else if (r_keycode == 53)
 	{
@@ -45,6 +45,9 @@ static int	ft_key_hook(int r_keycode, void *a_map)
 	return (0);
 }
 
+/*
+ * ポップアップの × ボタンが押下された時に呼ばれる
+ */
 static int	ft_mouse_hook(void *a_map)
 {
 	t_map	*r_map;

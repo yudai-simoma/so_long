@@ -6,7 +6,7 @@
 /*   By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 20:44:49 by yshimoma          #+#    #+#             */
-/*   Updated: 2023/03/30 18:42:27 by yshimoma         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:15:32 by yshimoma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ t_cell	*ft_pop(t_stack *a_stack)
 	return (r_return_cell);
 }
 
+/*
+ * スタックの中身を出力する
+ */
 // void ft_print_stack(t_stack *a_stack)
 // {
 // 	for (int i = 0; i <= a_stack->tail; i++)
