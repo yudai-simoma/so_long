@@ -6,7 +6,7 @@
 #    By: yshimoma <yshimoma@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/18 11:35:21 by yshimoma          #+#    #+#              #
-#    Updated: 2023/04/01 14:10:54 by yshimoma         ###   ########.fr        #
+#    Updated: 2023/04/06 19:02:35 by yshimoma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ ${NAME}: ${OBJS}
 	$(MAKE) -C ft_printf
 	$(MAKE) -C minilibx_mms_20200219
 	cp minilibx_mms_20200219/libmlx.dylib ./
-	${CC} -g -I${INCLUDE} libmlx.dylib libft/libft.a ft_printf/libftprintf.a get_next_line/get_next_line.a ${OBJS} -o $@
+	${CC} -I${INCLUDE} libmlx.dylib libft/libft.a ft_printf/libftprintf.a get_next_line/get_next_line.a ${OBJS} -o $@
 
 ${OBJ_DIR}/%.o:%.c
 	mkdir -p ./obj
