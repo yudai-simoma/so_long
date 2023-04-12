@@ -7,7 +7,7 @@
   * C
 
 ### 完成ディレクトリ
-  * /so_long
+  * ./so_long
 
 ### 画面イメージ
 <img width="1600" alt="スクリーンショット 2023-04-11 21 23 27" src="https://user-images.githubusercontent.com/80208699/231161467-56947622-e330-4721-8724-3171f52b483e.png">
